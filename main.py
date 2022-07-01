@@ -1,3 +1,14 @@
+def average_grade(self):
+    sum = 0
+    grades = 0
+    for a in self.grades.values():
+        for grade in a:
+            sum += grade
+            grades += 1
+    av_grade = sum / grades
+    return round(av_grade, 1)
+
+
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -33,6 +44,24 @@ class Student:
         else:
             print(
                 f"Средняя оценка студента {competitor_2.name} {competitor_2.surname} больше оценки студента {self.name} {self.surname} на {grade_2 - grade_1}")
+
+def av_course(st_list, course):
+    course = course
+    st_list = list(st_list)
+    summary = 0
+    quantity = 0
+
+    for stud in st_list:
+        for key, val in stud.grades.items():
+            if key is course:
+                for grade in val:
+                    summary += int(grade)
+                    quantity += 1
+    if quantity == 0:
+        phrase = 'Оценок нет'
+    else:
+        phrase = f'Средняя оценка на курсе {course} - {round(summary / quantity,1)}' 
+    return phrase
 
 
 class Mentor:
@@ -78,15 +107,7 @@ class Reviewer(Mentor):
         return res_name
 
 
-def average_grade(self):
-    sum = 0
-    grades = 0
-    for a in self.grades.values():
-        for grade in a:
-            sum += grade
-            grades += 1
-    av_grade = sum / grades
-    return round(av_grade, 1)
+
 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
@@ -95,16 +116,16 @@ best_student.courses_in_progress += ['Python']
 student_2 = Student('Mat', 'Daman', 'male')
 student_2.courses_in_progress += ['Python']
 
-cool_Reviewer = Reviewer('Some', 'Buddy')
-cool_Reviewer.courses_attached += ['Python']
+cool_Reviewer_1 = Reviewer('Some', 'Buddy')
+cool_Reviewer_1.courses_attached += ['Python']
 
-cool_Reviewer.rate_hw(best_student, 'Python', 10)
-cool_Reviewer.rate_hw(best_student, 'Python', 8)
-cool_Reviewer.rate_hw(best_student, 'Python', 9)
+cool_Reviewer_1.rate_hw(best_student, 'Python', 10)
+cool_Reviewer_1.rate_hw(best_student, 'Python', 8)
+cool_Reviewer_1.rate_hw(best_student, 'Python', 9)
 
-cool_Reviewer.rate_hw(student_2, 'Python', 5)
-cool_Reviewer.rate_hw(student_2, 'Python', 7)
-cool_Reviewer.rate_hw(student_2, 'Python', 9)
+cool_Reviewer_1.rate_hw(student_2, 'Python', 5)
+cool_Reviewer_1.rate_hw(student_2, 'Python', 7)
+cool_Reviewer_1.rate_hw(student_2, 'Python', 9)
 
 print(best_student.grades)
 
@@ -127,7 +148,7 @@ best_student.rate_lec(cool_Lecturer_2, 'Git', 4)
 
 print(cool_Lecturer_1.grades)
 print()
-print(cool_Reviewer)
+print(cool_Reviewer_1)
 print()
 print(cool_Lecturer_1)
 print()
@@ -136,6 +157,8 @@ print()
 cool_Lecturer_1.compare(cool_Lecturer_2)
 best_student.compare(student_2)
 
-# работает ли гит?
+python_students = [best_student, student_2]
+python_lecturers = [cool_Lecturer_1, cool_Lecturer_2]
 
-
+print(av_course(python_students, "Python"))
+print(av_course(python_lecturers, "Git"))
