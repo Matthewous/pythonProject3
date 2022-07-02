@@ -8,7 +8,6 @@ def average_grade(self):
     av_grade = sum / grades
     return round(av_grade, 1)
 
-
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -33,17 +32,19 @@ class Student:
         res_name = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашние задания:{average_grade(self)}\nКурсы в процессе изучения: {recent_courses}\nЗавершенные курсы: {finished_courses}'
         return res_name
 
-    def compare(self, competitor_2):
-        grade_1 = average_grade(self)
-        grade_2 = average_grade(competitor_2)
-        if grade_1 == grade_2:
-            print('Оценки равны')
-        elif grade_1 > grade_2:
-            print(
-                f"Средняя оценка студента {self.name} {self.surname} больше оценки студента {competitor_2.name} {competitor_2.surname} на {grade_1 - grade_2}")
-        else:
-            print(
-                f"Средняя оценка студента {competitor_2.name} {competitor_2.surname} больше оценки студента {self.name} {self.surname} на {grade_2 - grade_1}")
+    def __eq__(self, other):
+        return average_grade(self) == average_grade(other)
+    def __ne__(self, other):
+        return average_grade(self) != average_grade(other)
+    def __gt__(self, other):
+        return average_grade(self) > average_grade(other)
+    def __lt__(self, other):
+        return average_grade(self) < average_grade(other)
+    def __ge__(self, other):
+        return average_grade(self) >= average_grade(other)
+    def __le__(self, other):
+        return average_grade(self) <= average_grade(other)
+    
 
 def av_course(st_list, course):
     course = course
@@ -78,18 +79,18 @@ class Lecturer(Mentor):
         res_name = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции:{average_grade(self)}'
         return res_name
 
-    def compare(self, competitor_2):
-        grade_1 = average_grade(self)
-        grade_2 = average_grade(competitor_2)
-        if grade_1 == grade_2:
-            print('Оценки равны')
-        elif grade_1 > grade_2:
-            print(
-                f"Средняя оценка лектора {self.name} {self.surname} больше оценки лектора {competitor_2.name} {competitor_2.surname} на {grade_1 - grade_2}")
-        else:
-            print(
-                f"Средняя оценка лектора {competitor_2.name} {competitor_2.surname} больше оценки лектора {self.name} {self.surname} на {grade_2 - grade_1}")
-
+    def __eq__(self, other):
+        return average_grade(self) == average_grade(other)
+    def __ne__(self, other):
+        return average_grade(self) != average_grade(other)
+    def __gt__(self, other):
+        return average_grade(self) > average_grade(other)
+    def __lt__(self, other):
+        return average_grade(self) < average_grade(other)
+    def __ge__(self, other):
+        return average_grade(self) >= average_grade(other)
+    def __le__(self, other):
+        return average_grade(self) <= average_grade(other)
 
 class Reviewer(Mentor):
 
@@ -154,8 +155,30 @@ print(cool_Lecturer_1)
 print()
 print(best_student)
 print()
-cool_Lecturer_1.compare(cool_Lecturer_2)
-best_student.compare(student_2)
+
+# для начала вывожу значения для сравнения(для наглядности)
+print("Сравнение лекторов")
+print(average_grade(cool_Lecturer_1))
+print(average_grade(cool_Lecturer_2))
+print(cool_Lecturer_1 == cool_Lecturer_2)
+print(cool_Lecturer_1 != cool_Lecturer_2)
+print(cool_Lecturer_1 > cool_Lecturer_2)
+print(cool_Lecturer_1 < cool_Lecturer_2)
+print(cool_Lecturer_1 >= cool_Lecturer_2)
+print(cool_Lecturer_1 <= cool_Lecturer_2)
+
+
+# для начала вывожу значения для сравнения(для наглядности)
+print("\nСравнение студентов")
+print(average_grade(best_student))
+print(average_grade(student_2))
+print(best_student == student_2)
+print(best_student != student_2)
+print(best_student > student_2)
+print(best_student < student_2)
+print(best_student >= student_2)
+print(best_student <= student_2)
+
 
 python_students = [best_student, student_2]
 python_lecturers = [cool_Lecturer_1, cool_Lecturer_2]
