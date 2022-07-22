@@ -32,10 +32,6 @@ def cook_book_form(name):
     cook_book = dict(zip(plates_list,ingridients_list))
     return cook_book
 
-# cook_book = cook_book_form('recipes.txt')
-
-# print(cook_book_form('recipes.txt'))
-
 
 def order():
     cook_book = cook_book_form('recipes.txt')
@@ -47,43 +43,31 @@ def order():
     return dishes
 
 
-
 def persons():
     quantity = int(input('Введите количество гостей: '))
     return quantity
-        
 
 
 def get_shop_list_by_dishes(dishes = order(), person_count = persons()):
     cook_book = cook_book_form('recipes.txt')
+    # print(cook_book)
     order_book = {}
     for plate in dishes:
         ingridients_list = cook_book.get(plate)
         for list in ingridients_list:
             ingridient = str(list.get('ingridient'))
-            list.pop('ingridient')
-            list['quantity'] *= person_count
-            order_book[ingridient] = list
-    
-    ingridients_list = {}
-    for a in cook_book.values():
-        for b in a:
-            i = b.get('ingridient')
-            ingridients_list[i] = 0
-    print(ingridients_list)
-
-    count = 0
-    n = 0
-
-    for ingridient in order_book:
-        print(ingridient)
-        for name, count in ingridients_list.items():
-            if name == ingridient:
-                ingridients_list[name] = count + 1
-    print(ingridients_list)
-    
+            if ingridient not in order_book.keys():
+                list.pop('ingridient')
+                list['quantity'] *= person_count
+                order_book[ingridient] = list
+            else:
+                list.pop('ingridient')
+                old = order_book.get(ingridient)
+                quantit = old.get('quantity')
+                adding = person_count * list['quantity'] + quantit
+                list['quantity'] = adding
+                order_book[ingridient] = list
     return order_book
-
 
 
 cook_book_form('recipes.txt')
