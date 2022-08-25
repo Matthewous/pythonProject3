@@ -1,0 +1,2 @@
+datetime
+yahoo-quote-download 0.3.2
