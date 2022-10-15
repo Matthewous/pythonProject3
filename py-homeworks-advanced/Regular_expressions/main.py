@@ -49,6 +49,8 @@ def phones_correction(contacts_list):
 
 def undoubling(contacts_list):
 
+    # объединение записей с одинаковыми людьми
+
     contacts_list_len = len(contacts_list[0])
 
     fams = {}
@@ -107,6 +109,8 @@ def undoubling(contacts_list):
     return(final_contacts_list)
 
 def file_rewrite(contacts_list):
+
+    # загрузить получившийся список контактов в новый файл
 
     with open("phonebook.csv", "w") as f:
         datawriter = csv.writer(f, delimiter=',')
