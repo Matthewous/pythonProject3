@@ -47,75 +47,77 @@ def phones_correction(contacts_list):
     
     return contacts_list
 
+def undoubling(contacts_list):
+
+    contacts_list_len = len(contacts_list[0])
+
+    fams = {}
+    num = 0
+    for a in contacts_list:
+        fams[num] = a
+        num += 1
+
+    new_list = {}
+
+    num = 0
+    for a in contacts_list:
+        new_list[num] = a[0]
+        num += 1
+
+    rev_new_list = {}
+    for key, value in new_list.items():
+        rev_new_list.setdefault(value, list()).append(key)
+
+    so = []
+    for a in rev_new_list.values():
+        if len(a) > 1:
+            so.append(a)
+
+    doubles = []
+    for doubl in so:
+        for number in doubl:
+            doubles.append(number)
+
+    final_contacts_list = []
+    ignore_list = []
+    num = len(so)
+
+    for position in fams.items():
+        count = 0
+        for doubl in so:
+            ppppp = position[0]
+            count += 1
+            if position[0] not in doubl and count == num and position[0] not in ignore_list:
+                final_contacts_list.append(position[1])
+            elif position[0] in doubl and position[0] not in ignore_list:
+                doubl.remove(position[0])
+                doubl_pos = doubl[0]
+                ignore_list.append(position[0])
+                ignore_list.append(doubl_pos)
+                united_record = []
+                for field in range(0,contacts_list_len):
+                    field_num = 0
+                    recent_field = position[1][field]
+                    if recent_field != '':
+                        united_record.append(recent_field)
+                    else:
+                        united_record.append(fams[doubl_pos][field])
+                final_contacts_list.append(united_record)
+
+    return(final_contacts_list)
+
+def file_rewrite(contacts_list):
+
+    with open("phonebook.csv", "w") as f:
+        datawriter = csv.writer(f, delimiter=',')
+        datawriter.writerows(contacts_list)
 
 filepath = "/Users/matthew/Desktop/pythonProject3/py-homeworks-advanced/Regular_expressions/phonebook_raw.csv"
-
 
 if __name__ == '__main__':
 
     contacts_list = file_opener(filepath)
     name_correction(contacts_list)
     phones_correction(contacts_list)
-
-    print(contacts_list)
-
-# TODO объединить все дублирующиеся записи о человеке в одну.
-
-new_list = []
-compared = []
-
-num = 0
-num_compare = 0
-for line in contacts_list:
-    if line[0] not in compared:
-        lastname = line[0]
-        firstname = line[1]
-        num += 1
-        # print(lastname)
-        for line_compare in contacts_list:
-            num_compare += 1
-            lastname_compare = line_compare[0]
-            firstname_compare = line_compare[1]
-            if num != num_compare and lastname == lastname_compare and firstname == firstname_compare:
-                new_list_line = {}
-                
-                new_list_line[0] = lastname
-                new_list_line[1] = firstname
-                
-                keys = range(7)
-                # print(num_compare)
-                # print(line)
-                # print(line_compare)
-
-                for if_num in keys:
-                    # print(new_list_line)
-                    # print(line_compare)
-
-                    if line[if_num] == "":
-                        new_list_line[if_num] = line_compare[if_num]
-                        # pprint(line_compare)
-                    else:
-                        new_list_line[if_num] = line[if_num]
-                    
-                    # print(new_list_line[if_num])
-
-                # code = 0 
-                # for new_line in new_list:
-                #     for lastnames in new_line.values():
-                #         if new_list_line[0] == lastnames:
-                #             code = 1
-
-                compared.append(new_list_line[0])
-                new_list.append(new_list_line)
-
-                # if code == 0:
-                #     new_list.append(new_list_line)
-
-# pprint(new_list)
-
-# TODO 2: сохраните получившиеся данные в другой файл
-# код для записи файла в формате CSV
-# with open("phonebook.csv", "w") as f:
-#   datawriter = csv.writer(f, delimiter=',')
-#   # Вместо contacts_list подставьте свой список
-#   datawriter.writerows(contacts_list)
+    final_contacts_list = undoubling(contacts_list)
+    file_rewrite(final_contacts_list)
