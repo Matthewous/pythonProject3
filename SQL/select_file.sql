@@ -83,7 +83,7 @@ select a."name" from albums a
 ;
 
 -- наименование треков, которые не входят в сборники
-select t."name"from tracks t 
+select t."name" from tracks t 
 	left join tracks_mixtapes tm on t.id = tm.track_id 
 	left join mixtapes m on tm.mixtape_id = m.id 
 		where m."name" is null
