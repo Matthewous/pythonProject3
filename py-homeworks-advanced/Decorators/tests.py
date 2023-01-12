@@ -5,7 +5,7 @@ from old_project_function import get_article_date, get_article_header, get_actua
 KEYWORDS = ['python', 'программирование', 'нейросеть', 'робот']
 
 def test_1():
-    path = '/Users/matthew/Desktop/pythonProject3/py-homeworks-advanced/Decorators/logs/main.log'
+    path = '/Users/matthew/Desktop/pythonProject3/py-homeworks-advanced/Decorators/main.log'
     if os.path.exists(path):
         os.remove(path)
 
@@ -42,7 +42,7 @@ def test_1():
 
 
 def test_2():
-    paths = ('/Users/matthew/Desktop/pythonProject3/py-homeworks-advanced/Decorators/logs/log_1.log', '/Users/matthew/Desktop/pythonProject3/py-homeworks-advanced/Decorators/logs/log_2.log', '/Users/matthew/Desktop/pythonProject3/py-homeworks-advanced/Decorators/logs/log_3.log')
+    paths = ('/Users/matthew/Desktop/pythonProject3/py-homeworks-advanced/Decorators/log_1.log', '/Users/matthew/Desktop/pythonProject3/py-homeworks-advanced/Decorators/log_2.log', '/Users/matthew/Desktop/pythonProject3/py-homeworks-advanced/Decorators/log_3.log')
 
     for path in paths:
         if os.path.exists(path):
