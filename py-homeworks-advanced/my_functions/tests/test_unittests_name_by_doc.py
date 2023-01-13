@@ -1,7 +1,6 @@
 import unittest
 
-from main import documents, directories, name_by_doc
-
+from main import name_by_doc
 
 class TestFunction(unittest.TestCase):
     
